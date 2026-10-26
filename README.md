@@ -10,7 +10,7 @@ npm run install-browser
 cp config.example.json config.json
 ```
 
-Il monitor seleziona la sede `IT-TO-N250` definita in `config.json` e usa i filtri predefiniti `All` della pagina Book a Desk. Controlla ogni 5 minuti, anche nel weekend. Dal lunedi al venerdi monitora la data corrente e i giorni rimanenti della settimana; nel weekend monitora il successivo lunedi-venerdi. I desk che corrispondono a `excludedDeskPatterns` non vengono contati ne notificati; per impostazione predefinita esclude la sala `3.U.46` e i desk `HD`.
+Il monitor seleziona la sede `IT-TO-N250` definita in `config.json` e usa i filtri predefiniti `All` della pagina Book a Desk. Controlla ogni 5 minuti, anche nel weekend. Monitora tutti i giorni dal lunedi al venerdi da oggi fino all'ultimo giorno del mese successivo, includendo quindi il resto del mese corrente e tutto il prossimo mese. L'intervallo viene ricalcolato a ogni ciclo. I desk che corrispondono a `excludedDeskPatterns` non vengono contati ne notificati; per impostazione predefinita esclude la sala `3.U.46` e i desk `HD`.
 
 ## Uso
 

@@ -48,20 +48,16 @@ async function notify(message, config) {
   await sendTeams(messageWithLink, config);
 }
 
-function monitoredWorkDays() {
-  const today = new Date();
+function monitoredWorkDays(now = new Date()) {
+  const today = new Date(now);
   today.setHours(12, 0, 0, 0);
-  const weekday = today.getDay();
-  const monday = new Date(today);
-  if (weekday === 0) monday.setDate(today.getDate() + 1);
-  else if (weekday === 6) monday.setDate(today.getDate() + 2);
-  else monday.setDate(today.getDate() - (weekday - 1));
+  const end = new Date(today.getFullYear(), today.getMonth() + 2, 0, 12);
+  const days = [];
 
-  return Array.from({ length: 5 }, (_, index) => {
-    const date = new Date(monday);
-    date.setDate(monday.getDate() + index);
-    return date;
-  }).filter((date) => date >= today);
+  for (const date = new Date(today); date <= end; date.setDate(date.getDate() + 1)) {
+    if (date.getDay() !== 0 && date.getDay() !== 6) days.push(new Date(date));
+  }
+  return days;
 }
 
 function formatDate(date) {
@@ -122,6 +118,7 @@ async function selectDate(page, date) {
   for (let attempts = 0; attempts < 15; attempts += 1) {
     const displayedMonth = (await page.locator('nb-calendar-range nb-calendar-view-mode button').innerText()).trim();
     if (displayedMonth === targetMonth) break;
+    if (attempts === 14) throw new Error(`Impossibile raggiungere ${targetMonth} nel calendario.`);
     await page.locator('nb-calendar-range button.next-month').click();
     await page.waitForTimeout(300);
   }
