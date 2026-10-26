@@ -1,0 +1,6 @@
+node_modules/
+browser-profile/
+state.json
+config.json
+playwright-report/
+test-results/

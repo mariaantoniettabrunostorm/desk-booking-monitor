@@ -1,0 +1,8 @@
+{
+  "url": "https://deskbooking.reply.com/home",
+  "location": "IT-TO-N250",
+  "excludedDeskPatterns": ["3\\.U\\.46", "\\bHD\\b"],
+  "teamsWebhookUrl": "",
+  "checkIntervalMinutes": 5,
+  "headless": true
+}
